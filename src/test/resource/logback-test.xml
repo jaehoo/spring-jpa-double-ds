@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <!--<logger name="org.hibernate">-->
+        <!--<level value="info"/>-->
+    <!--</logger>-->
+    <!--<logger name="org.dozer">-->
+        <!--<level value="warn"/>-->
+    <!--</logger>-->
+    <!--<logger name="org.meanbean.factories.util">-->
+        <!--<level value="error"/>-->
+    <!--</logger>-->
+
+    <!--<logger name="org.springframework.test.context.transaction.TransactionalTestExecutionListener"-->
+            <!--additivity="false" >-->
+        <!--<level value="warn"/>-->
+    <!--</logger>-->
+
+    <!--<logger name="org.apache.commons.beanutils.converters">-->
+        <!--<level value="warn"/>-->
+    <!--</logger>-->
+
+    <root level="info">
+        <!--<include resource="org/springframework/boot/logging/logback/base.xml" />-->
+        <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

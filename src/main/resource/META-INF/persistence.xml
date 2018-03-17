@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+             http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+
+    <persistence-unit name="unit1" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <mapping-file>META-INF/native-querys.xml</mapping-file>
+        <class>org.oz.persistence.dao.db1.model.Customer</class>
+
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="hibernate.show_sql" value="false" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="hibernate.connection.driver_class" value="org.h2.Driver"/>
+            <property name="hibernate.archive.autodetection" value="class,hbm"/>
+            <property name="useUnicode" value="true"/>
+            <property name="characterSetResults" value="UTF8"/>
+            <property name="characterEncoding" value="UTF8"/>
+            <property name="hibernate.format_sql" value="false"/>
+            <property name="hibernate.use_sql_comments" value="false"/>
+            <property name="hibernate.hbm2ddl.keywords" value="auto-quote"/>
+            <property name="hibernate.bytecode.use_reflection_optimizer" value="true"/>
+            <property name="hibernate.connection.useUnicode" value="true"/>
+            <property name="hibernate.connection.characterEncoding" value="UTF8"/>
+            <property name="hibernate.connection.charSet" value="UTF8"/>
+            <property name="hibernate.connection.characterSetResults" value="UTF8"/>
+
+            <property name="hibernate.default_schema" value="BASEA"/>
+        </properties>
+
+    </persistence-unit>
+
+
+    <persistence-unit name="unit2" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <mapping-file>META-INF/native-querys.xml</mapping-file>
+        <class>org.oz.persistence.dao.db2.model.Product</class>
+
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="hibernate.show_sql" value="false" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="hibernate.connection.driver_class" value="org.h2.Driver"/>
+            <property name="hibernate.archive.autodetection" value="class,hbm"/>
+            <property name="useUnicode" value="true"/>
+            <property name="characterSetResults" value="UTF8"/>
+            <property name="characterEncoding" value="UTF8"/>
+            <property name="hibernate.format_sql" value="false"/>
+            <property name="hibernate.use_sql_comments" value="false"/>
+            <property name="hibernate.hbm2ddl.keywords" value="auto-quote"/>
+            <property name="hibernate.bytecode.use_reflection_optimizer" value="true"/>
+            <property name="hibernate.connection.useUnicode" value="true"/>
+            <property name="hibernate.connection.characterEncoding" value="UTF8"/>
+            <property name="hibernate.connection.charSet" value="UTF8"/>
+            <property name="hibernate.connection.characterSetResults" value="UTF8"/>
+
+
+            <property name="hibernate.default_schema" value="BASEB"/>
+        </properties>
+
+    </persistence-unit>
+
+
+
+</persistence>
