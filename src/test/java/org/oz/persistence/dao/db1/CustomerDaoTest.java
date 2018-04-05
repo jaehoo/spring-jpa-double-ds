@@ -7,20 +7,20 @@ import org.oz.persistence.dao.db1.model.Customer;
 import org.oz.persistence.dao.db2.ProductDao;
 import org.oz.persistence.dao.db2.model.Product;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
 
-
+@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:app-ctx-test.xml"})
 @TransactionConfiguration
-@RunWith(SpringJUnit4ClassRunner.class)
 @Slf4j
 public class CustomerDaoTest {
 
@@ -46,7 +46,7 @@ public class CustomerDaoTest {
         }
 
 
-       List tables = (List<Product>) customerDao.getTables();
+        List tables = (List<Product>) customerDao.getTables();
 
         log.info("tables:{}",tables.size());
         for(Object c : tables){
@@ -92,3 +92,4 @@ public class CustomerDaoTest {
 
 
 }
+
