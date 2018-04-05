@@ -25,9 +25,6 @@
     <bean id="pum" class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
         <property name="persistenceXmlLocations">
             <list>
-                <!--<value>org/springframework/orm/jpa/domain/persistence-multi.xml</value>-->
-                <!--<value>classpath:/my/package/**/custom-persistence.xml</value>-->
-                <!--<value>classpath:META-INF/persistence-db1.xml</value>-->
                 <value>classpath:META-INF/persistence.xml</value>
             </list>
         </property>

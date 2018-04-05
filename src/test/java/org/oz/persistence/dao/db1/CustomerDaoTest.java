@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.oz.persistence.dao.db1.model.Customer;
 import org.oz.persistence.dao.db2.ProductDao;
 import org.oz.persistence.dao.db2.model.Product;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -78,9 +80,13 @@ public class CustomerDaoTest {
 
 
     @Test
-    public void name() throws Exception {
-        List tables = (List) productDao.getTables();
-        tables.addAll((List) customerDao.getTables());
+    public void queryngTwoSoruces() throws Exception {
+
+        log.info("getting data from two DS in one method");
+        List tables = new ArrayList();
+
+        tables.addAll(productDao.getTables());
+        tables.addAll(customerDao.getTables());
 
         log.info("tables:{}",tables.size());
         for(Object c : tables){

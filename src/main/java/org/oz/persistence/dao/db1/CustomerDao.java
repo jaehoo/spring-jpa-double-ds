@@ -1,8 +1,5 @@
 package org.oz.persistence.dao.db1;
 
-import lombok.Setter;
-import org.springframework.orm.jpa.JpaTemplate;
-
 import javax.persistence.*;
 import java.util.Collection;
 
