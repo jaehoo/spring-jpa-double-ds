@@ -1,7 +1,7 @@
 Spring and JPA with two data sources 
 =============
 
-[![Build Status](https://travis-ci.org/jaehoo/oz-ex-mvn-jee-packaging.png?branch=master)](https://travis-ci.org/jaehoo/oz-ex-jasper-reports)
+[![Build Status](https://travis-ci.org/jaehoo/spring-jpa-double-ds.svg?branch=master)](https://travis-ci.org/jaehoo/spring-jpa-double-ds)
 
 A simple example to build spring app to use two different data sources with JPA
 
