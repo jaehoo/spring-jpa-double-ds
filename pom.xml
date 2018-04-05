@@ -278,7 +278,8 @@
                 <configuration>
                     <excludes>
                         <!--<exclude>com/oz/atm/gui/**/*</exclude>-->
-                        <exclude>org/oz/**/*.class</exclude>
+                        <exclude>org/oz/persistence/dao/db1/model/*.class</exclude>
+                        <exclude>org/oz/persistence/dao/db2/model/*.class</exclude>
                     </excludes>
                 </configuration>
             </plugin>
