@@ -17,9 +17,10 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+
 @ContextConfiguration(locations = {"classpath:app-ctx-test.xml"})
 @TransactionConfiguration
+@RunWith(SpringJUnit4ClassRunner.class)
 @Slf4j
 public class CustomerDaoTest {
 
