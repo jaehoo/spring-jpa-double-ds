@@ -1,8 +1,8 @@
+---
 language: java
 script: mvn compile test
 jdk:
   - openjdk7
-
 notifications:
   email:
   - jaehoo@gmail.com
