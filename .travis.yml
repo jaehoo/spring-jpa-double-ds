@@ -5,4 +5,4 @@ jdk:
 
 notifications:
   email:
-- jaehoo@gmail.com
+  - jaehoo@gmail.com
