@@ -3,6 +3,8 @@ package org.oz.persistence.dao.db1;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.oz.conf.FirstDB;
+import org.oz.conf.SecondDB;
 import org.oz.persistence.dao.db1.model.Customer;
 import org.oz.persistence.dao.db2.ProductDao;
 import org.oz.persistence.dao.db2.model.Product;
@@ -21,7 +23,7 @@ import java.util.List;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:app-ctx-test.xml"})
+@ContextConfiguration(classes = { FirstDB.class, SecondDB.class })
 @TransactionConfiguration
 @Slf4j
 public class CustomerDaoTest {
