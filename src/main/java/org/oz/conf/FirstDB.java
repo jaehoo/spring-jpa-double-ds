@@ -1,5 +1,7 @@
 package org.oz.conf;
 
+import com.atomikos.jdbc.AtomikosDataSourceBean;
+import org.h2.jdbcx.JdbcDataSource;
 import org.oz.persistence.dao.db1.CustomerDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
@@ -19,11 +21,11 @@ import javax.sql.DataSource;
 
 @Configuration
 @PropertySource({ "classpath:app-props.properties" })
-//@DependsOn("transactionManager")
+@DependsOn("transactionManager")
 @EnableJpaRepositories(
         basePackages = "org.oz.persistence.dao.db1.model",
         entityManagerFactoryRef = "entityManagerFactory1",
-        transactionManagerRef = "transactionManager1"
+        transactionManagerRef = "transactionManager"
 )
 public class FirstDB {
 
@@ -32,28 +34,36 @@ public class FirstDB {
 
 
     @Primary
-        @Bean(name = "dataSource1")
+    @Bean(name = "dataSource1")
+    @Lazy
     public DataSource getDataSource() {
 
-        DriverManagerDataSource dataSource= new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getProperty("jdbc1.driver"));
-        dataSource.setUrl(env.getProperty("jdbc1.url"));
-        dataSource.setUsername(env.getProperty("jdbc1.user"));
+        JdbcDataSource dataSource= new JdbcDataSource();
+//        dataSource.set(env.getProperty("jdbc1.driver"));
+        dataSource.setURL(env.getProperty("jdbc1.url"));
+        dataSource.setUser(env.getProperty("jdbc1.user"));
         dataSource.setPassword(env.getProperty("jdbc1.pass"));
+
+        AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
+        xaDataSource.setXaDataSource(dataSource);
+        xaDataSource.setUniqueResourceName("xads1");
+
 
         return dataSource;
     }
 
     @Primary
     @Bean(name = "entityManagerFactory1")
+    @DependsOn("transactionManager")
+    @Lazy
     public LocalContainerEntityManagerFactoryBean getEntityManager() {
 
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 
         em.setPersistenceXmlLocation(env.getProperty("persistenceXmlLocation"));
-        em.setDataSource(getDataSource());
         em.setPackagesToScan(new String[] {"org.oz.persistence.dao.db1" });
         em.setPersistenceUnitName(env.getProperty("persitence.unit1"));
+        em.setJtaDataSource(getDataSource());
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
@@ -61,14 +71,15 @@ public class FirstDB {
         return em;
     }
 
-    @Primary
-    @Bean(name = "transactionManager1")
-    public PlatformTransactionManager getTransactionManager() {
-
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(getEntityManager().getObject());
-        return transactionManager;
-    }
+//    @Primary
+//    @Bean(name = "transactionManager1")
+//    @Lazy
+//    public PlatformTransactionManager getTransactionManager() {
+//
+//        JpaTransactionManager transactionManager = new JpaTransactionManager();
+//        transactionManager.setEntityManagerFactory(getEntityManager().getObject());
+//        return transactionManager;
+//    }
 
     @Bean(name = "customerDao")
     public CustomerDao getCustoerDao(){

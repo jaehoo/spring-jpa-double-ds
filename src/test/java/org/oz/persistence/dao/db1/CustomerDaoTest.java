@@ -1,19 +1,23 @@
 package org.oz.persistence.dao.db1;
 
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.oz.conf.FirstDB;
+import org.oz.conf.MainConf;
 import org.oz.conf.SecondDB;
 import org.oz.persistence.dao.db1.model.Customer;
 import org.oz.persistence.dao.db2.ProductDao;
 import org.oz.persistence.dao.db2.model.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -23,11 +27,10 @@ import java.util.List;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { FirstDB.class, SecondDB.class })
-@TransactionConfiguration
+@ContextConfiguration(classes = { FirstDB.class, SecondDB.class,MainConf.class })
+@TransactionConfiguration(transactionManager = "transactionManager")
 @Slf4j
 public class CustomerDaoTest {
-
 
     @Resource(name = "customerDao")
     private CustomerDao customerDao;
@@ -36,9 +39,8 @@ public class CustomerDaoTest {
     private ProductDao productDao;
 
 
-
     @Test
-    @Transactional("transactionManager1")
+    @Transactional
     public void loadCustomers() throws Exception {
 
         List<Customer> customers = (List<Customer>) customerDao.loadCustomers();
@@ -61,7 +63,7 @@ public class CustomerDaoTest {
     }
 
     @Test
-    @Transactional("transactionManager2")
+    @Transactional
     public void loadProducts() throws Exception {
 
         List<Product> products = (List<Product>) productDao.loadProducts();
@@ -82,6 +84,7 @@ public class CustomerDaoTest {
 
 
     @Test
+    @Transactional
     public void queryngTwoSoruces() throws Exception {
 
         log.info("getting data from two DS in one method");

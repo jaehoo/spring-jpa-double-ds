@@ -1,5 +1,7 @@
 package org.oz.persistence.dao.db2;
 
+import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
@@ -9,6 +11,7 @@ import java.util.Collection;
 /**
  * Created by <a href="https://twitter.com/jaehoox">jaehoo</a> on 16/03/2018
  */
+@Repository
 public class ProductDao {
 
     public static final String SEL_TABLES="select.tablesh2";

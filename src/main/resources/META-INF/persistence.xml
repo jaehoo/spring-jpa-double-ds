@@ -5,7 +5,7 @@
              http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
 
-    <persistence-unit name="unit1" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="unit1" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <mapping-file>META-INF/native-querys.xml</mapping-file>
@@ -13,6 +13,8 @@
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
+            <property name="hibernate.transaction.jta.platform" value="org.oz.persistence.dao.AtomikosJtaPlatform" />
+            <property name="javax.persistence.transactionType" value="JTA" />
             <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
             <property name="hibernate.connection.driver_class" value="org.h2.Driver"/>
@@ -35,7 +37,7 @@
     </persistence-unit>
 
 
-    <persistence-unit name="unit2" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="unit2" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <mapping-file>META-INF/native-querys.xml</mapping-file>
@@ -43,6 +45,8 @@
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
+            <property name="hibernate.transaction.jta.platform" value="org.oz.persistence.dao.AtomikosJtaPlatform" />
+            <property name="javax.persistence.transactionType" value="JTA" />
             <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
             <property name="hibernate.connection.driver_class" value="org.h2.Driver"/>

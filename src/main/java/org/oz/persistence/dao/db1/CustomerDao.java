@@ -1,11 +1,14 @@
 package org.oz.persistence.dao.db1;
 
+import org.springframework.stereotype.Repository;
+
 import javax.persistence.*;
 import java.util.Collection;
 
 /**
  * Created by <a href="https://twitter.com/jaehoox">jaehoo</a> on 16/03/2018
  */
+@Repository
 public class CustomerDao {
 
     public static final String SEL_TABLES="select.tablesh2";

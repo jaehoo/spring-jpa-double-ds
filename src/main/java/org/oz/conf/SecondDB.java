@@ -1,5 +1,7 @@
 package org.oz.conf;
 
+import com.atomikos.jdbc.AtomikosDataSourceBean;
+import org.h2.jdbcx.JdbcDataSource;
 import org.oz.persistence.dao.db1.CustomerDao;
 import org.oz.persistence.dao.db2.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +22,11 @@ import javax.sql.DataSource;
 
 @Configuration
 @PropertySource({ "classpath:app-props.properties" })
-//@DependsOn("transactionManager")
+@DependsOn("transactionManager")
 @EnableJpaRepositories(
         basePackages = "org.oz.persistence.dao.db2.model",
         entityManagerFactoryRef = "entityManagerFactory2",
-        transactionManagerRef = "transactionManager2"
+        transactionManagerRef = "transactionManager"
 )
 public class SecondDB {
 
@@ -37,26 +39,32 @@ public class SecondDB {
     @Lazy
     public DataSource getDataSource() {
 
-        DriverManagerDataSource dataSource= new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getProperty("jdbc2.driver"));
-        dataSource.setUrl(env.getProperty("jdbc2.url"));
-        dataSource.setUsername(env.getProperty("jdbc2.user"));
+        JdbcDataSource dataSource= new JdbcDataSource();
+        dataSource.setURL(env.getProperty("jdbc2.url"));
+        dataSource.setUser(env.getProperty("jdbc2.user"));
         dataSource.setPassword(env.getProperty("jdbc2.pass"));
+
+        AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
+        xaDataSource.setXaDataSource(dataSource);
+        xaDataSource.setUniqueResourceName("xads2");
 
         return dataSource;
     }
 
     @Primary
     @Bean(name = "entityManagerFactory2")
+    @DependsOn("transactionManager")
     @Lazy
     public LocalContainerEntityManagerFactoryBean getEntityManager() {
 
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 
         em.setPersistenceXmlLocation(env.getProperty("persistenceXmlLocation"));
-        em.setDataSource(getDataSource());
+        //em.setDataSource(getDataSource());
         em.setPackagesToScan(new String[] {"org.oz.persistence.dao.db2" });
         em.setPersistenceUnitName(env.getProperty("persitence.unit2"));
+        em.setJtaDataSource(getDataSource());
+
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
@@ -64,15 +72,15 @@ public class SecondDB {
         return em;
     }
 
-    @Primary
-    @Bean(name = "transactionManager2")
-    @Lazy
-    public PlatformTransactionManager getTransactionManager() {
-
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(getEntityManager().getObject());
-        return transactionManager;
-    }
+//    @Primary
+//    @Bean(name = "transactionManager2")
+//    @Lazy
+//    public PlatformTransactionManager getTransactionManager() {
+//
+//        JpaTransactionManager transactionManager = new JpaTransactionManager();
+//        transactionManager.setEntityManagerFactory(getEntityManager().getObject());
+//        return transactionManager;
+//    }
 
     @Bean(name = "productDao")
     public ProductDao getProductDao(){
